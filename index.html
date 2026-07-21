@@ -104,18 +104,18 @@
     <!-- CONTACT SECTION -->
     <section id="contact">
       <h2>Get In Touch</h2>
-      <form>
+      <form action="https://formspree.io/f/xaqrbvob" method="POST">
         <div>
           <label for="name">Name</label>
-          <input type="text" id="name" placeholder="Your Name" required />
+          <input type="text" id="name" name="name" placeholder="Your Name" autocomplete="on" required />
         </div>
         <div>
           <label for="email">Email</label>
-          <input type="email" id="email" placeholder="your@email.com" required />
+          <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="on" required />
         </div>
         <div>
           <label for="message">Message</label>
-          <textarea id="message" rows="5" placeholder="Your message..."></textarea>
+          <textarea id="message" name="message" rows="5" placeholder="Your message..."></textarea>
         </div>
         <button type="submit">Send Message</button>
       </form>

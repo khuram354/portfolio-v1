@@ -77,15 +77,15 @@ const typingEffect = () => {
 };
 
 // ============================================
-// 3. FORM VALIDATION (FIXED - Using Classes)
+// 3. FORM VALIDATION
 // ============================================
 
 const validateForm = () => {
     const form = document.querySelector("form");
     if (!form) return;
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Form ko rokna zaroori hai
 
         const name = document.getElementById("name");
         const email = document.getElementById("email");
@@ -94,18 +94,16 @@ const validateForm = () => {
         let isValid = true;
         const errors = [];
 
-        // Reset all borders and remove error classes
-        [name, email, message].forEach((el) => {
-            el.classList.remove("error", "success");
-        });
+        // --- Validation (Red Borders wala logic) ---
+        [name, email, message].forEach((el) =>
+            el.classList.remove("error", "success"),
+        );
 
-        // Name validation
         if (!name.value.trim() || name.value.trim().length < 2) {
             isValid = false;
             errors.push("• Name must be at least 2 characters.");
             name.classList.add("error");
         }
-
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
@@ -121,30 +119,34 @@ const validateForm = () => {
             message.classList.add("error");
         }
 
-        if (isValid) {
-            alert(
-                "✅ Message sent successfully!\n\nI will get back to you soon.",
-            );
-            form.reset();
-            [name, email, message].forEach((el) => {
-                el.classList.remove("error", "success");
-            });
-        } else {
-            alert(`❌ Please fix these errors:\n\n${errors.join("\n")}`);
+        if (!isValid) {
+            alert(`❌ Please fix errors:\n${errors.join("\n")}`);
+            return;
         }
-    });
 
-    // Real-time validation - remove error class on input
-    const inputs = document.querySelectorAll("input, textarea");
-    inputs.forEach((input) => {
-        input.addEventListener("input", () => {
-            if (input.value.trim().length > 0) {
-                input.classList.remove("error");
-                input.classList.add("success");
+        // --- Agar sab sahi hai toh Formspree par bhejein ---
+        try {
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: { Accept: "application/json" },
+            });
+
+            if (response.ok) {
+                alert(
+                    "✅ Message sent successfully! I will get back to you soon.",
+                );
+                form.reset();
+                [name, email, message].forEach((el) =>
+                    el.classList.remove("success", "error"),
+                );
             } else {
-                input.classList.remove("success", "error");
+                alert("❌ Oops! Something went wrong. Please try again.");
             }
-        });
+        } catch (error) {
+            alert("❌ Network error. Please check your connection.");
+        }
     });
 };
 
@@ -216,20 +218,3 @@ const lightThemeStyles = `
 const styleTag = document.createElement("style");
 styleTag.textContent = lightThemeStyles;
 document.head.appendChild(styleTag);
-
-// ============================================
-// 7. CONSOLE WELCOME
-// ============================================
-
-console.log(
-    "%c👨‍💻 Portfolio Website | Sargodha's Developer",
-    "font-size: 20px; font-weight: bold; color: #6c63ff;",
-);
-console.log(
-    "%cBuilt with ❤️ using HTML, CSS & JavaScript",
-    "font-size: 14px; color: #a0a0b8;",
-);
-console.log(
-    "%cCheck out the code on GitHub!",
-    "font-size: 14px; color: #6c63ff;",
-);
