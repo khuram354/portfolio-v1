@@ -1,0 +1,233 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 100%);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #6c63ff, #3b82f6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ===== INPUT SECTION ===== */
+.todo-input {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+#todo-input {
+    flex: 1;
+    padding: 14px 18px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+#todo-input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.2);
+}
+
+#todo-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+#add-btn {
+    padding: 14px 24px;
+    background: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+#add-btn:hover {
+    background: #5a52d9;
+    transform: scale(1.05);
+}
+
+/* ===== FILTERS ===== */
+.filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+.filter-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.filter-btn.active {
+    background: #6c63ff;
+    color: white;
+    border-color: #6c63ff;
+}
+
+/* ===== TODO LIST ===== */
+.todo-list {
+    list-style: none;
+    min-height: 200px;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: 0.3s;
+    animation: slideIn 0.3s ease;
+}
+
+.todo-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.todo-item .todo-text {
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    flex: 1;
+    margin-right: 12px;
+}
+
+.todo-item .todo-text.completed {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.todo-item .delete-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 0 4px;
+}
+
+.todo-item .delete-btn:hover {
+    color: #ff4757;
+    transform: scale(1.2);
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    padding: 40px 0;
+    font-size: 1.1rem;
+}
+
+/* ===== STATS ===== */
+.todo-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 16px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+}
+
+#clear-completed {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+#clear-completed:hover {
+    color: #ff4757;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    .todo-input {
+        flex-direction: column;
+    }
+
+    #add-btn {
+        width: 100%;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .todo-item {
+        padding: 12px 14px;
+    }
+}
